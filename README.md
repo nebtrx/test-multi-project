@@ -2,7 +2,7 @@
 
 _This code was adapted from [this repo](https://github.com/pbassiner/sbt-multi-project-example)_
 
-_When I was done with my modifications I was feeling too lazy to fork the original repo and apply the dif patch.
+_When I was done with my modifications I was feeling too lazy to fork the original repo and apply the diff patch.
 So I decided to write this note instead._
 
 _All the merits goes to his author [Pol Bassiner](https://github.com/pbassiner)_
