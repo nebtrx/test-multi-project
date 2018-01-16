@@ -1,6 +1,6 @@
-name := "sbt-multi-project-example"
-organization in ThisBuild := "com.pbassiner"
-scalaVersion in ThisBuild := "2.12.3"
+name := "test-multi-project"
+organization in ThisBuild := "com.latam"
+scalaVersion in ThisBuild := "2.12.4"
 
 // PROJECTS
 
@@ -9,8 +9,8 @@ lazy val global = project
   .settings(settings)
   .aggregate(
     common,
-    multi1,
-    multi2
+    mccmx,
+    mccec
   )
 
 lazy val common = project
@@ -20,9 +20,9 @@ lazy val common = project
     libraryDependencies ++= commonDependencies
   )
 
-lazy val multi1 = project
+lazy val mccec = project
   .settings(
-    name := "multi1",
+    name := "mccec",
     settings,
     assemblySettings,
     libraryDependencies ++= commonDependencies ++ Seq(
@@ -34,13 +34,13 @@ lazy val multi1 = project
     common
   )
 
-lazy val multi2 = project
+lazy val mccmx = project
   .settings(
-    name := "multi2",
+    name := "mccmx",
     settings,
     assemblySettings,
     libraryDependencies ++= commonDependencies ++ Seq(
-      dependencies.pureconfig
+      dependencies.cats
     )
   )
   .dependsOn(
@@ -56,7 +56,7 @@ lazy val dependencies =
     val scalaLoggingV   = "3.7.2"
     val slf4jV          = "1.7.25"
     val typesafeConfigV = "1.3.1"
-    val pureconfigV     = "0.8.0"
+    val catsV           = "1.0.1"
     val monocleV        = "1.4.0"
     val akkaV           = "2.5.6"
     val scalatestV      = "3.0.4"
@@ -70,7 +70,7 @@ lazy val dependencies =
     val akka           = "com.typesafe.akka"          %% "akka-stream"             % akkaV
     val monocleCore    = "com.github.julien-truffaut" %% "monocle-core"            % monocleV
     val monocleMacro   = "com.github.julien-truffaut" %% "monocle-macro"           % monocleV
-    val pureconfig     = "com.github.pureconfig"      %% "pureconfig"              % pureconfigV
+    val cats           = "org.typelevel"              %% "cats-core"               % catsV
     val scalatest      = "org.scalatest"              %% "scalatest"               % scalatestV
     val scalacheck     = "org.scalacheck"             %% "scalacheck"              % scalacheckV
   }
@@ -94,6 +94,7 @@ wartremoverSettings ++
 scalafmtSettings
 
 lazy val compilerOptions = Seq(
+  "-Ypartial-unification",
   "-unchecked",
   "-feature",
   "-language:existentials",
